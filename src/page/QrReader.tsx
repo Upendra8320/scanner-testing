@@ -3,7 +3,6 @@ import QrScanner from "qr-scanner";
 import { useParams } from "react-router-dom";
 
 const QrReader = () => {
-  const { id } = useParams();
   const scanner = useRef<QrScanner>();
   const videoEl = useRef<HTMLVideoElement>(null);
   const qrBoxEl = useRef<HTMLDivElement>(null);
@@ -20,7 +19,13 @@ const QrReader = () => {
     }
   };
 
+
+
+
   const onScanFail = (err: string | Error) => {};
+
+
+
 
   useEffect(() => {
     QrScanner.listCameras(true).then((cameras) => {
@@ -31,9 +36,14 @@ const QrReader = () => {
     });
   }, []);
 
+
+
+
   useEffect(() => {
     if (videoEl.current && cameras.length > 0 && selectedCameraId) {
       const selectedCamera = cameras.find(camera => camera.id === selectedCameraId);
+      console.log("selected camera",selectedCamera)
+      console.log(!scanner.current)
       if (!scanner.current && selectedCamera) {
         scanner.current = new QrScanner(videoEl.current, onScanSuccess, {
           onDecodeError: onScanFail,
@@ -43,7 +53,7 @@ const QrReader = () => {
           overlay: qrBoxEl.current || undefined,
           maxScansPerSecond: 25,
         });
-
+          console.log("this worked")
         scanner.current.start().then(() => {
           setQrOn(true);
         }).catch((err) => {
@@ -52,13 +62,18 @@ const QrReader = () => {
         });
       } else if (scanner.current && selectedCamera) {
         scanner.current.setCamera(selectedCamera.id).catch(console.error);
+        console.log("else if worked")
+
       }
     }
 
     return () => {
       scanner?.current?.stop();
     };
-  }, [selectedCameraId, cameras]);
+  }, [selectedCameraId, cameras, setSelectedCameraId]);
+
+
+
 
   useEffect(() => {
     if (!qrOn) {
@@ -66,10 +81,12 @@ const QrReader = () => {
     }
   }, [qrOn]);
 
-  const handleCameraChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCameraId(e.target.value);
-  };
 
+
+  const handleCameraChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(e.target.value);
+    setSelectedCameraId(e.target.value);
+  }
   return (
     <>
       <h1>QR Scanner</h1>
@@ -90,6 +107,9 @@ const QrReader = () => {
         <div className="text-container mx-2 px-4 py-2 rounded-[10px] shadow-3xl mb-4">
           <p className="text-[#525252d8] text-center text-[16px] font-[400] py-1">
             {scannedResult}
+            {cameras.map((camera) => (
+              <div key={camera.id}>{camera.label}</div>
+            ))}
           </p>
         </div>
       </div>
