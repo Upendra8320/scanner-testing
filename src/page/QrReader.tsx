@@ -89,7 +89,7 @@ const QrReader = () => {
         </div>
         <div className="text-container mx-2 px-4 py-2 rounded-[10px] shadow-3xl mb-4">
           <p className="text-[#525252d8] text-center text-[16px] font-[400] py-1">
-            Please scan the QR code label on the packaging to access details and update the consumed quantity.
+            {scannedResult}
           </p>
         </div>
       </div>
