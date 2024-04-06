@@ -1,0 +1,40 @@
+{
+  "short_name": "IMS DEMO",
+  "name": "IMS DEMO",
+  "icons": [
+    {
+      "src": "newlogo64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "newlogo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "newlogo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "BottleLogo1280.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "BottleLogo640.png",
+      "sizes": "640x360",
+      "type": "image/png",
+      "form_factor": "mobile"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
