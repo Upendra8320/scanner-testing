@@ -50,7 +50,7 @@ const QrReader = () => {
           console.error(err);
           setQrOn(false);
         });
-      } else if (scanner.current) {
+      } else if (scanner.current && selectedCamera) {
         scanner.current.setCamera(selectedCamera.id).catch(console.error);
       }
     }
